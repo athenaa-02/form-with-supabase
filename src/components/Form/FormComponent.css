@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
+form {
+  background-color: white;
+  width: 736px;
+  height: 773px;
+  padding: 40px;
+  font-family: "Karla", sans-serif;
+  border-radius: 16px;
+}
+h1 {
+  margin: 0 0 31px 0;
+  color: #2a4144;
+  font-weight: 700;
+  font-size: 32px;
+}
+button {
+  width: 100%;
+  height: 59px;
+  background-color: #0c7d69;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
+button:active{
+  background-color: #0d4239f7;
+}
+form div {
+  display: flex;
+  margin-bottom: 23px;
+}
+label,
+p {
+  color: #2a4144;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+div.name,
+div.lastName,
+div.email,
+div.text {
+  flex-direction: column;
+}
+div.name label,
+div.email label,
+div.lastName label,
+div.text label {
+  margin-bottom: 9.5px;
+}
+
+input#firstName,
+#lastName,
+#email,
+div.text input {
+  width: 272px;
+  height: 27px;
+  padding: 12px 24px;
+  border: 1px solid #86a2a5;
+  border-radius: 8px;
+  box-sizing: content-box;
+  line-height: 28px;
+  font-size: 18px;
+  color: #2A4144;
+}
+
+div #email,
+div.text input {
+  width: 608px;
+}
+div.text input {
+  height: 105px;
+  color: #2A4144;
+}
+div.wrapper,
+div.query {
+  gap: 16px;
+}
+aside {
+  display: flex;
+  border: 1px solid #86a2a5;
+  align-items: center;
+  padding: 0 0 0 24px;
+  border-radius: 8px;
+  gap: 15px;
+  width: 320px;
+  height: 51px;
+}
+aside input {
+  width: 20px;
+  height: 20px;
+}
+div.agreement input {
+  width: 18px;
+  height: 18px;
+}
+div.agreement{
+  gap: 15px;
+}
