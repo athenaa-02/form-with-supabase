@@ -1,9 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 
+section.signUpParent{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c7d69;
+}
+
 form {
   background-color: white;
   width: 736px;
-  height: 640px;
+  height: 690px;
   padding: 38px;
   font-family: "Karla", sans-serif;
   border-radius: 16px;

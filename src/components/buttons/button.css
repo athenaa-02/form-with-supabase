@@ -1,0 +1,10 @@
+button.signInBtn, .signUpBtn{
+ width: 180px;
+  height: 59px;
+  background-color: #0c7d69;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}

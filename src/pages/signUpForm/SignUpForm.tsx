@@ -1,8 +1,9 @@
-import "./FormComponent.css";
+import "./SignUpForm.css";
 import { useState } from "react";
+import { Link } from "react-router";
 
 
-function FormComponent() {
+function SignUpForm() {
   const [firstName, setFirstName] = useState("natia");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,15 +13,11 @@ function FormComponent() {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log('first name: ', firstName)
-    console.log('last name: ', lastName)
-    console.log('email: ', email)
-    console.log('password: ', password)
-    console.log('agree rules:', agreeRules)
-
-
-
-
+    console.log("first name: ", firstName);
+    console.log("last name: ", lastName);
+    console.log("email: ", email);
+    console.log("password: ", password);
+    console.log("agree rules:", agreeRules);
   };
 
   const firstNameChangeHandler = (
@@ -36,18 +33,20 @@ function FormComponent() {
   const changeEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
- 
-  const passwordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-setPassword(event.target.value)
-  }
-  const agreementHandler = (event: React.ChangeEvent<HTMLInputElement> ) =>{
-setAgreeRules(event.target.checked)
-  }
 
+  const passwordChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPassword(event.target.value);
+  };
+  const agreementHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAgreeRules(event.target.checked);
+  };
   return (
     <>
+    <section className="signUpParent">
       <form onSubmit={submitHandler}>
-        <h1>Sing in</h1>
+        <h1>Sign up</h1>
         <div className="wrapper">
           <div className="name">
             <label htmlFor="firstName">First Name *</label>
@@ -77,24 +76,33 @@ setAgreeRules(event.target.checked)
             onChange={changeEmailHandler}
           />
         </div>
-        
+
         <div className="text">
           <label htmlFor="password">password *</label>
-          <input type="password" value={password} id="password" onChange={passwordChangeHandler}/>
+          <input
+            type="password"
+            value={password}
+            id="password"
+            onChange={passwordChangeHandler}
+          />
         </div>
-        <div className="agreement">
-          <input type="checkbox" name="agreement" id="agreement"   checked={agreeRules === true} onChange={agreementHandler} />
-          <label htmlFor="agreement">
-            I consent to being contacted by the team *
-          </label>
+        <div className="text">
+          <label htmlFor="password">Repeat password *</label>
+          <input
+            type="password"
+            value={password}
+            id="password"
+            onChange={passwordChangeHandler}
+          />
         </div>
+        
         <button type="submit">Submit</button>
-        {/* <Link>
-        <p>sign in</p>
-        </Link> */}
+        <Link to={'/sign-in'} className="link">
+        <p className='signLinks'>sign in</p>
+        </Link>
       </form>
+      </section>
     </>
   );
 }
-
-export default FormComponent;
+export default SignUpForm;
