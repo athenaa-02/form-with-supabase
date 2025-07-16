@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 
-section.signUpParent{
+section.parent{
     width: 100%;
     height: 100vh;
     display: flex;
@@ -85,11 +85,4 @@ div.wrapper{
 aside input {
   width: 20px;
   height: 20px;
-}
-div.agreement input {
-  width: 18px;
-  height: 18px;
-}
-div.agreement{
-  gap: 15px;
 }

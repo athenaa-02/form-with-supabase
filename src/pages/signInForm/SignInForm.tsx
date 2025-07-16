@@ -26,7 +26,7 @@ function SignInForm() {
 
   return (
   <>
-   <section className="signUpParent">
+   <section className="signIn parent">
       <form onSubmit={submitHandler}>
         <h1>Sign in</h1>
         <div className="email">

@@ -1,6 +1,7 @@
 import "./SignUpForm.css";
 import { useState } from "react";
 import { Link } from "react-router";
+import { FormUtility } from "../../utilities/FormUtility";
 
 
 function SignUpForm() {
@@ -8,7 +9,6 @@ function SignUpForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [agreeRules, setAgreeRules] = useState(false);
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,7 +17,6 @@ function SignUpForm() {
     console.log("last name: ", lastName);
     console.log("email: ", email);
     console.log("password: ", password);
-    console.log("agree rules:", agreeRules);
   };
 
   const firstNameChangeHandler = (
@@ -38,13 +37,19 @@ function SignUpForm() {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setPassword(event.target.value);
-  };
-  const agreementHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAgreeRules(event.target.checked);
-  };
+  }
+
+
+
+  const form = new FormUtility();
+// console.log(form.emailValidator('natia@mail.com')); 
+// console.log(form.passwordValidator('natiaaa'))
+// console.log(form.repeatPasswordValidator('natiaaa', 'natiaaa'))
+
+
   return (
     <>
-    <section className="signUpParent">
+    <section className="signUp parent">
       <form onSubmit={submitHandler}>
         <h1>Sign up</h1>
         <div className="wrapper">
@@ -87,11 +92,11 @@ function SignUpForm() {
           />
         </div>
         <div className="text">
-          <label htmlFor="password">Repeat password *</label>
+          <label htmlFor="repeatPassword">Repeat password *</label>
           <input
             type="password"
             value={password}
-            id="password"
+            id="repeatPassword"
             onChange={passwordChangeHandler}
           />
         </div>
