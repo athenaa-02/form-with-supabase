@@ -1,111 +1,118 @@
 import "./SignUpForm.css";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router";
-import { FormUtility } from "../../utilities/FormUtility";
+import { FormManager, type TFormData } from "../../utilities/FormManager";
 
 
 function SignUpForm() {
-  const [firstName, setFirstName] = useState("natia");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const formManager = useMemo(() => new FormManager(), [])
+//get metod
+const  [formData, setFormData] = useState<TFormData>(formManager.formData);
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
-    console.log("first name: ", firstName);
-    console.log("last name: ", lastName);
-    console.log("email: ", email);
-    console.log("password: ", password);
+const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+  const {name, value} = e.target
+   const updatedState = formManager.updateFieldValue(name as keyof TFormData, value);
+   //rerender the component>
+   setFormData(updatedState);
+
+}
+
+const handleSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
+  e.preventDefault()
+const {isValid, data } = formManager.validateForm()
+setFormData(data)
+
+    if (isValid) {
+      // Extract only the values for submission
+      const submissionData= {} as { [K in keyof TFormData]: string | null };
+      Object.keys(data).forEach((key) => {
+        submissionData[key as keyof TFormData] =
+          data[key as keyof TFormData].value;
+      });
+
+      console.log('Form is valid; Submit data:', submissionData);
+      //  api call here
+      formManager.resetForm(); 
+      setFormData(formManager.formData);
+    } else {
+      console.log('Form is invalid');
+     
+    }
   };
 
-  const firstNameChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFirstName(event.target.value);
-  };
-  const changeLastNameHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setLastName(event.target.value);
-  };
-  const changeEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const passwordChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setPassword(event.target.value);
-  }
 
 
-
-  const form = new FormUtility();
+  // const form = new FormUtility();
 // console.log(form.emailValidator('natia@mail.com')); 
 // console.log(form.passwordValidator('natiaaa'))
 // console.log(form.repeatPasswordValidator('natiaaa', 'natiaaa'))
 
 
-  return (
+    return (
     <>
-    <section className="signUp parent">
-      <form onSubmit={submitHandler}>
-        <h1>Sign up</h1>
-        <div className="wrapper">
-          <div className="name">
-            <label htmlFor="firstName">First Name *</label>
+      <section className="signUp parent">
+        <form onSubmit={handleSubmit}>
+          <h1>Sign up</h1>
+          <div className="wrapper">
+            <div className="name">
+              <label htmlFor="firstName">First Name *</label>
+              <input
+                type="text"
+                value={formData.firstName.value || ''}
+                id="firstName"
+                name="firstName" // <--- ADD THIS LINE
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="lastName">
+              <label htmlFor="lastName">Last Name *</label>
+              <input
+                type="text"
+                value={formData.lastName.value || ''}
+                id="lastName"
+                name="lastName" // <--- ADD THIS LINE
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+          <div className="email">
+            <label htmlFor="email">Email Address *</label>
             <input
-              type="text"
-              value={firstName}
-              id="firstName"
-              onChange={firstNameChangeHandler}
+              type="email"
+              value={formData.email.value || ''}
+              id="email"
+              name="email" // <--- ADD THIS LINE
+              onChange={handleInputChange}
             />
           </div>
-          <div className="lastName">
-            <label htmlFor="lastName">Last Name *</label>
-            <input
-              type="text"
-              value={lastName}
-              id="lastName"
-              onChange={changeLastNameHandler}
-            />
-          </div>
-        </div>
-        <div className="email">
-          <label htmlFor="email">Email Address *</label>
-          <input
-            type="email"
-            value={email}
-            id="email"
-            onChange={changeEmailHandler}
-          />
-        </div>
 
-        <div className="text">
-          <label htmlFor="password">password *</label>
-          <input
-            type="password"
-            value={password}
-            id="password"
-            onChange={passwordChangeHandler}
-          />
-        </div>
-        <div className="text">
-          <label htmlFor="repeatPassword">Repeat password *</label>
-          <input
-            type="password"
-            value={password}
-            id="repeatPassword"
-            onChange={passwordChangeHandler}
-          />
-        </div>
-        
-        <button type="submit">Submit</button>
-        <Link to={'/sign-in'} className="link">
-        <p className='signLinks'>sign in</p>
-        </Link>
-      </form>
+          <div className="text">
+            <label htmlFor="password">password *</label>
+            <input
+              type="password"
+              value={formData.password.value || ''}
+              id="password"
+              name="password" // <--- ADD THIS LINE
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="text">
+            <label htmlFor="repeatPassword">Repeat password *</label>
+            <input
+              type="password"
+              value={formData.repeatPassword.value || ''}
+              id="repeatPassword"
+              name="repeatPassword" // <--- ADD THIS LINE
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <button type="submit">Submit</button>
+          <Link to={'/sign-in'} className="link">
+            <p className='signLinks'>sign in</p>
+          </Link>
+        </form>
       </section>
     </>
   );

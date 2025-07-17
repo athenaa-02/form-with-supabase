@@ -1,6 +1,7 @@
 import './SignInForm.css'
 import { useState } from "react";
 import { Link } from 'react-router';
+import type { FormManager, TFormData } from '../../utilities/FormManager';
 
 function SignInForm() {
   const [email, setEmail] = useState("");
